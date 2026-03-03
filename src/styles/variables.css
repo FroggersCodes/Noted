@@ -1,0 +1,25 @@
+:root {
+  --color-bg: #0f0f10;
+  --color-surface: #1a1a1e;
+  --color-surface-2: #22222a;
+  --color-border: #2e2e38;
+  --color-text-primary: #e8e8ec;
+  --color-text-secondary: #888898;
+  --color-text-muted: #55555f;
+  --color-accent: #7c6af7;
+  --color-accent-hover: #9080ff;
+  --color-accent-subtle: rgba(124, 106, 247, 0.15);
+  --color-danger: #e05c5c;
+  --color-danger-hover: #f06868;
+  --color-success: #4caf7d;
+
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+
+  --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
+  --font-mono: 'JetBrains Mono', 'Fira Code', 'Cascadia Code', monospace;
+
+  --sidebar-width: 280px;
+  --transition: 150ms ease;
+}
