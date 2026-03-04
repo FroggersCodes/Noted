@@ -2,9 +2,9 @@ import { useState } from 'react';
 import { useAuth } from '../context/AuthContext';
 import styles from './AuthPage.module.css';
 
-export function AuthPage() {
+export function AuthPage({ initialMode = 'login', onBack }) {
   const { signIn, signUp } = useAuth();
-  const [mode, setMode] = useState('login');
+  const [mode, setMode] = useState(initialMode);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
@@ -51,6 +51,9 @@ export function AuthPage() {
   return (
     <div className={styles.page}>
       <div className={styles.card}>
+        {onBack && (
+          <button className={styles.backBtn} onClick={onBack}>← Back</button>
+        )}
         <div className={styles.logo}>📝</div>
         <h1 className={styles.appName}>Noted</h1>
         <h2 className={styles.heading}>{mode === 'login' ? 'Sign in' : 'Create account'}</h2>

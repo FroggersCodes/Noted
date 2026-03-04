@@ -8,7 +8,6 @@
 
 html, body, #root {
   height: 100%;
-  overflow: hidden;
 }
 
 body {
@@ -44,8 +43,8 @@ input, textarea {
   border-radius: 10px;
 }
 
-/* highlight.js theme override — dark match */
+/* highlight.js theme override */
 .hljs {
-  background: #12121a !important;
+  background: #ededf2 !important;
   border-radius: var(--radius-sm);
 }
