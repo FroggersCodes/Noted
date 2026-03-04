@@ -48,9 +48,10 @@ export function NotesProvider({ children }) {
   }, [state.notes]);
 
   const createNote = useCallback(async () => {
+    const { data: { user } } = await supabase.auth.getUser();
     const { data, error } = await supabase
       .from('notes')
-      .insert({ title: '', content: '', tags: [] })
+      .insert({ user_id: user.id, title: '', content: '', tags: [] })
       .select()
       .single();
     if (!error) {

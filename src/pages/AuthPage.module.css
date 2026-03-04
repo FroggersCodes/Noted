@@ -115,6 +115,18 @@
 }
 .link:hover { color: var(--color-accent-hover); text-decoration: underline; }
 
+.backBtn {
+  align-self: flex-start;
+  background: none;
+  border: none;
+  color: var(--color-text-secondary);
+  font-size: 13px;
+  cursor: pointer;
+  padding: 0;
+  margin-bottom: 8px;
+}
+.backBtn:hover { color: var(--color-text-primary); }
+
 .confirm {
   font-size: 14px;
   color: var(--color-text-secondary);
