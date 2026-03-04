@@ -1,20 +1,27 @@
-import { createNote } from '../utils/noteHelpers';
-
 export const initialState = {
   notes: [],
   activeNote: null,
   searchQuery: '',
   activeTag: null,
   viewMode: 'list', // 'list' | 'editor' | 'viewer'
+  loading: false,
+  error: null,
 };
 
 export function notesReducer(state, action) {
   switch (action.type) {
     case 'LOAD_NOTES':
-      return { ...state, notes: action.payload };
+      return { ...state, notes: action.payload, loading: false };
+
+    case 'SET_LOADING':
+      return { ...state, loading: action.payload };
+
+    case 'SET_ERROR':
+      return { ...state, error: action.payload, loading: false };
 
     case 'CREATE_NOTE': {
-      const note = createNote();
+      // action.payload is the server-returned row with real UUID and timestamps
+      const note = action.payload;
       return {
         ...state,
         notes: [note, ...state.notes],
@@ -24,7 +31,7 @@ export function notesReducer(state, action) {
     }
 
     case 'UPDATE_NOTE': {
-      const updated = { ...action.payload, updatedAt: new Date().toISOString() };
+      const updated = action.payload;
       return {
         ...state,
         notes: state.notes.map(n => n.id === updated.id ? updated : n),

@@ -29,7 +29,7 @@ export function NoteViewer() {
 
         <div className={styles.meta}>
           <span className={styles.date}>
-            Updated {formatRelativeDate(activeNote.updatedAt)} · Created {formatRelativeDate(activeNote.createdAt)}
+            Updated {formatRelativeDate(activeNote.updated_at)} · Created {formatRelativeDate(activeNote.created_at)}
           </span>
           {activeNote.tags.length > 0 && (
             <div className={styles.tags}>

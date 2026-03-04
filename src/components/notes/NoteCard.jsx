@@ -43,7 +43,7 @@ export function NoteCard({ note }) {
         </div>
         {preview && <p className={styles.preview}>{preview}</p>}
         <div className={styles.footer}>
-          <span className={styles.date}>{formatRelativeDate(note.updatedAt)}</span>
+          <span className={styles.date}>{formatRelativeDate(note.updated_at)}</span>
           <div className={styles.tags}>
             {note.tags.slice(0, 3).map(tag => (
               <TagBadge key={tag} tag={tag} />
