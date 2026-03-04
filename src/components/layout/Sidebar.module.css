@@ -59,4 +59,41 @@
 .tags {
   padding: 0 4px;
   overflow-y: auto;
+  flex: 1;
+}
+
+.userRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 10px 8px;
+  border-top: 1px solid var(--color-border);
+  margin-top: auto;
+}
+
+.userEmail {
+  font-size: 11px;
+  color: var(--color-text-muted);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  flex: 1;
+}
+
+.signOut {
+  font-size: 11px;
+  color: var(--color-text-secondary);
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 3px 6px;
+  border-radius: var(--radius-sm);
+  white-space: nowrap;
+  transition: background var(--transition), color var(--transition);
+  flex-shrink: 0;
+}
+.signOut:hover {
+  background: var(--color-surface-2);
+  color: var(--color-text-primary);
 }

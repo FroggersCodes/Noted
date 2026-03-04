@@ -1,10 +1,12 @@
 import { useNotes } from '../../context/NotesContext';
+import { useAuth } from '../../context/AuthContext';
 import { SearchBar } from '../search/SearchBar';
 import { TagList } from '../tags/TagList';
 import styles from './Sidebar.module.css';
 
 export function Sidebar() {
   const { filteredNotes, notes, createNote } = useNotes();
+  const { session, signOut } = useAuth();
 
   const countLabel = filteredNotes.length === notes.length
     ? `${notes.length} note${notes.length !== 1 ? 's' : ''}`
@@ -30,6 +32,13 @@ export function Sidebar() {
 
       <div className={styles.tags}>
         <TagList />
+      </div>
+
+      <div className={styles.userRow}>
+        <span className={styles.userEmail}>{session?.user?.email}</span>
+        <button className={styles.signOut} onClick={signOut} title="Sign out">
+          Sign out
+        </button>
       </div>
     </aside>
   );
