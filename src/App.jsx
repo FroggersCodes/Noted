@@ -42,17 +42,17 @@ function AppRouter() {
   const { session, authLoading } = useAuth();
   const [authView, setAuthView] = useState('landing'); // 'landing' | 'login' | 'signup'
 
-  if (authLoading) return <LoadingSpinner fullPage />;
+  // If auth check done and user is logged in, show the app
+  if (!authLoading && session) {
+    return (
+      <NotesProvider>
+        <AppShell />
+      </NotesProvider>
+    );
+  }
 
-  if (!session) {
-    if (authView === 'landing') {
-      return (
-        <LandingPage
-          onSignIn={() => setAuthView('login')}
-          onSignUp={() => setAuthView('signup')}
-        />
-      );
-    }
+  // Show landing/auth pages immediately (no blank loading screen)
+  if (authView === 'login' || authView === 'signup') {
     return (
       <AuthPage
         initialMode={authView === 'signup' ? 'signup' : 'login'}
@@ -62,9 +62,10 @@ function AppRouter() {
   }
 
   return (
-    <NotesProvider>
-      <AppShell />
-    </NotesProvider>
+    <LandingPage
+      onSignIn={() => setAuthView('login')}
+      onSignUp={() => setAuthView('signup')}
+    />
   );
 }
 
