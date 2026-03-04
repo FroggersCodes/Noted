@@ -3,6 +3,7 @@ import { AuthProvider, useAuth } from './context/AuthContext';
 import { NotesProvider, useNotes } from './context/NotesContext';
 import { Sidebar } from './components/layout/Sidebar';
 import { MainPanel } from './components/layout/MainPanel';
+import { NoteList } from './components/notes/NoteList';
 import { AuthPage } from './pages/AuthPage';
 import { LandingPage } from './pages/LandingPage';
 import { LoadingSpinner } from './components/ui/LoadingSpinner';
@@ -19,7 +20,7 @@ function AppShell() {
         createNote();
       }
       if (e.key === 'Escape' && viewMode === 'editor') {
-        setViewMode('list');
+        setViewMode('viewer');
       }
     };
     window.addEventListener('keydown', handler);
@@ -29,6 +30,9 @@ function AppShell() {
   return (
     <div className={styles.app}>
       <Sidebar />
+      <div className={styles.noteListPane}>
+        <NoteList />
+      </div>
       <MainPanel />
     </div>
   );

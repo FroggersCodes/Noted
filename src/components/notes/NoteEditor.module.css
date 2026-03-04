@@ -84,6 +84,42 @@
 }
 .tagInput::placeholder { color: var(--color-text-muted); }
 
+.formatBar {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  padding: 4px 16px;
+  border-bottom: 1px solid var(--color-border);
+  flex-shrink: 0;
+  background: var(--color-surface);
+}
+
+.formatBar button {
+  background: none;
+  border: none;
+  color: var(--color-text-secondary);
+  font-size: 13px;
+  font-weight: 600;
+  padding: 4px 8px;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: background var(--transition), color var(--transition);
+  font-family: var(--font-sans);
+  line-height: 1;
+}
+
+.formatBar button:hover {
+  background: var(--color-surface-2);
+  color: var(--color-text-primary);
+}
+
+.fmtDivider {
+  width: 1px;
+  height: 16px;
+  background: var(--color-border);
+  margin: 0 4px;
+}
+
 .panes {
   display: grid;
   grid-template-columns: 1fr 1fr;

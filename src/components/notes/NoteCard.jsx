@@ -6,7 +6,7 @@ import { formatRelativeDate } from '../../utils/dateHelpers';
 import styles from './NoteCard.module.css';
 
 export function NoteCard({ note }) {
-  const { selectNote, deleteNote, updateNote, activeNote } = useNotes();
+  const { selectNote, deleteNote, updateNote, activeNote, setActiveTag, activeTag } = useNotes();
   const [showDelete, setShowDelete] = useState(false);
   const isActive = activeNote?.id === note.id;
 
@@ -46,7 +46,12 @@ export function NoteCard({ note }) {
           <span className={styles.date}>{formatRelativeDate(note.updated_at)}</span>
           <div className={styles.tags}>
             {note.tags.slice(0, 3).map(tag => (
-              <TagBadge key={tag} tag={tag} />
+              <TagBadge
+                key={tag}
+                tag={tag}
+                active={activeTag === tag}
+                onClick={e => { e.stopPropagation(); setActiveTag(activeTag === tag ? null : tag); }}
+              />
             ))}
             {note.tags.length > 3 && <TagBadge tag={`+${note.tags.length - 3}`} />}
           </div>

@@ -16,6 +16,7 @@ export function NoteEditor() {
 
   const saveTimer = useRef(null);
   const titleRef = useRef(null);
+  const textareaRef = useRef(null);
 
   // Focus title on mount
   useEffect(() => { titleRef.current?.focus(); }, []);
@@ -48,15 +49,39 @@ export function NoteEditor() {
       const tags = tagInput.split(',').map(t => t.trim().toLowerCase()).filter(Boolean);
       updateNote({ ...activeNote, title, content, tags });
     }
-    setViewMode('list');
+    setViewMode('viewer');
   };
+
+  function formatText(syntax) {
+    const el = textareaRef.current;
+    if (!el) return;
+    const start = el.selectionStart;
+    const end = el.selectionEnd;
+    const selected = content.slice(start, end);
+
+    const wrappers = { bold: '**', italic: '*', strike: '~~', code: '`' };
+    const prefixes = { h1: '# ', quote: '> ', ul: '- ' };
+
+    let newContent;
+    if (wrappers[syntax]) {
+      const w = wrappers[syntax];
+      newContent = content.slice(0, start) + w + selected + w + content.slice(end);
+    } else if (prefixes[syntax]) {
+      const lineStart = content.lastIndexOf('\n', start - 1) + 1;
+      newContent = content.slice(0, lineStart) + prefixes[syntax] + content.slice(lineStart);
+    }
+    if (newContent !== undefined) {
+      setContent(newContent);
+      setTimeout(() => el.focus(), 0);
+    }
+  }
 
   if (!activeNote) return null;
 
   return (
     <div className={styles.editor}>
       <div className={styles.toolbar}>
-        <button className={styles.back} onClick={handleBack} title="Back to list">
+        <button className={styles.back} onClick={handleBack} title="Back to note">
           ← Back
         </button>
         <div className={styles.toolbarRight}>
@@ -89,12 +114,24 @@ export function NoteEditor() {
         />
       </div>
 
+      <div className={styles.formatBar}>
+        <button onMouseDown={e => { e.preventDefault(); formatText('bold'); }} title="Bold"><b>B</b></button>
+        <button onMouseDown={e => { e.preventDefault(); formatText('italic'); }} title="Italic"><i>I</i></button>
+        <button onMouseDown={e => { e.preventDefault(); formatText('strike'); }} title="Strikethrough"><s>S</s></button>
+        <button onMouseDown={e => { e.preventDefault(); formatText('code'); }} title="Inline code">`</button>
+        <div className={styles.fmtDivider} />
+        <button onMouseDown={e => { e.preventDefault(); formatText('h1'); }} title="Heading">H</button>
+        <button onMouseDown={e => { e.preventDefault(); formatText('quote'); }} title="Blockquote">"</button>
+        <button onMouseDown={e => { e.preventDefault(); formatText('ul'); }} title="Bullet list">•</button>
+      </div>
+
       <div className={`${styles.panes} ${preview ? styles.previewOnly : ''}`}>
         <textarea
+          ref={textareaRef}
           className={styles.textarea}
           value={content}
           onChange={e => setContent(e.target.value)}
-          placeholder="Start writing in Markdown…&#10;&#10;# Heading&#10;**bold**, *italic*, `code`&#10;- list items&#10;&#10;```js&#10;const hello = 'world';&#10;```"
+          placeholder="Start writing…"
           spellCheck
         />
         <div className={`${styles.markdownPreview} markdown-body`}>

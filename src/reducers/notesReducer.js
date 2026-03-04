@@ -45,7 +45,7 @@ export function notesReducer(state, action) {
         ...state,
         notes: remaining,
         activeNote: state.activeNote?.id === action.payload ? null : state.activeNote,
-        viewMode: state.activeNote?.id === action.payload ? 'list' : state.viewMode,
+        viewMode: state.viewMode,
       };
     }
 
